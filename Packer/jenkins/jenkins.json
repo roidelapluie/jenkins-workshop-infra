@@ -1,0 +1,36 @@
+{
+    "variables": {
+        "do_api_token": "",
+        "do_base_image": "",
+        "do_datacenter": "",
+        "version": ""
+    },
+    "builders": [
+        {
+            "type": "digitalocean",
+            "region": "{{user `do_datacenter`}}",
+            "image": "{{user `do_base_image`}}",
+            "size": "512mb",
+            "ssh_username": "root",
+            "api_token": "{{user `do_api_token`}}",
+            "snapshot_name": "jenkins-{{user `version`}}",
+            "droplet_name": "jenkins-{{user `version`}}"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "file",
+            "source": "userContent",
+            "destination": "/tmp/userContent"
+        },
+        {
+            "type": "file",
+            "source": "init.groovy.d",
+            "destination": "/tmp/init.groovy.d"
+        },
+        {
+            "type": "shell",
+            "script": "build-jenkins.sh"
+        }
+    ]
+}

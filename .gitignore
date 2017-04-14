@@ -1,0 +1,4 @@
+certs
+config.json
+do_*.pem
+*.tfstate

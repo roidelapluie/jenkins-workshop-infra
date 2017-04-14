@@ -1,0 +1,8 @@
+defaultEntryPoints = ["https"]
+
+[entryPoints]
+    [entryPoints.https]
+    address = ":443"
+    [[entryPoints.https.tls.certificates]]
+    CertFile = "/etc/traefik-ssl/fullchain.pem"
+    KeyFile = "/etc/traefik-ssl/privkey.pem"

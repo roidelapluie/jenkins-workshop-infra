@@ -1,0 +1,10 @@
+{
+    "do_api_token": "650a4338a025ef78ac28e1853a78ffbeea50a7b2",
+    "do_base_image": "centos-7-x64",
+    "do_datacenter": "ams3",
+    "do_domain": "workshop.example.com",
+    "do_ssh_key": "8096521",
+    "do_deploy_jenkins_image": "24167674",
+    "do_deploy_traefik_image": "24165935",
+    "count": "20"
+}

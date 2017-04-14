@@ -1,0 +1,31 @@
+{
+    "variables": {
+        "do_api_token": "",
+        "do_base_image": "",
+        "do_datacenter": "",
+        "version": "",
+        "traefik_version": ""
+    },
+    "builders": [
+        {
+            "type": "digitalocean",
+            "region": "{{user `do_datacenter`}}",
+            "image": "{{user `do_base_image`}}",
+            "size": "512mb",
+            "ssh_username": "root",
+            "api_token": "{{user `do_api_token`}}",
+            "snapshot_name": "traefik-{{user `version`}}",
+            "droplet_name": "traefik-{{user `version`}}"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "build-traefik.sh",
+            "environment_vars": [
+                "traefik_version={{user `traefik_version`}}"
+            ]
+
+        }
+    ]
+}
