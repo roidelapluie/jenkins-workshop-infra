@@ -3,6 +3,7 @@
 ## Howto
 
 - Create config.json
+- Delegate one of your DNS (sub)domains to DigitalOcean
 - Create Jenkins and Treafik snapshots
 
 ```
