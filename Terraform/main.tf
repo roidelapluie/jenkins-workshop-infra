@@ -105,5 +105,5 @@ resource "digitalocean_droplet" "traefik" {
 }
 
 output "addresses-passwords" {
-    value = "${zipmap(digitalocean_droplet.jenkins.*.fqdn, digitalocean_droplet.jenkins.*.ipv4_address)}"
+    value = "${zipmap(digitalocean_droplet.jenkins.*.name, random_id.password.*.hex)}"
 }
