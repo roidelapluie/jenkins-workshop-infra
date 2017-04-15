@@ -3,7 +3,13 @@
 wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
 rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
 
-(echo update; echo install java-openjdk; echo install jenkins;  echo run) | yum shell -y
+(
+ echo update
+ echo install java-openjdk
+ echo install jenkins
+ echo install git
+ echo run
+ ) | yum shell -y
 
 systemctl enable jenkins
 
