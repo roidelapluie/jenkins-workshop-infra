@@ -4,7 +4,7 @@
     "do_datacenter": "ams3",
     "do_domain": "workshop.example.com",
     "do_ssh_key": "8096521",
-    "do_deploy_jenkins_image": "24167674",
-    "do_deploy_traefik_image": "24165935",
+    "do_jenkins_droplet_version": "1.0.7",
+    "do_traefik_droplet_version": "1.0.1",
     "count": "20"
 }

@@ -1,0 +1,4 @@
+#!/bin/bash -e
+set -o pipefail
+id="$(eval $(jq -r '@sh "doctl -t=\(.api_token) compute snapshot list \(.id) -o json"')|jq -r .[0].id)"
+jq -r -n --arg id "$id" '{"id":$id}'

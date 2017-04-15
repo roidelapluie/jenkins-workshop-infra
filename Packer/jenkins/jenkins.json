@@ -13,8 +13,8 @@
             "size": "512mb",
             "ssh_username": "root",
             "api_token": "{{user `do_api_token`}}",
-            "snapshot_name": "jenkins-{{user `version`}}",
-            "droplet_name": "jenkins-{{user `version`}}"
+            "snapshot_name": "jenkins-{{user `do_jenkins_droplet_version`}}",
+            "droplet_name": "jenkins-{{user `do_jenkins_droplet_version`}}"
         }
     ],
     "provisioners": [

@@ -14,8 +14,8 @@
             "size": "512mb",
             "ssh_username": "root",
             "api_token": "{{user `do_api_token`}}",
-            "snapshot_name": "traefik-{{user `version`}}",
-            "droplet_name": "traefik-{{user `version`}}"
+            "snapshot_name": "traefik-{{user `do_traefik_droplet_version`}}",
+            "droplet_name": "traefik-{{user `do_traefik_droplet_version`}}"
         }
     ],
     "provisioners": [

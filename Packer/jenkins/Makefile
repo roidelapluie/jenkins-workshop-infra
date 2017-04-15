@@ -1,4 +1,2 @@
-version = 1.0.7
-
 build:
-	packer build -var-file ../../config.json -var version=$(version) jenkins.json
+	packer build -var-file ../../config.json jenkins.json
