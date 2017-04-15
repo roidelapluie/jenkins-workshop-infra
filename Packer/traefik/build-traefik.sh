@@ -1,5 +1,7 @@
 #!/bin/bash -xe
 
+yum update -y
+
 wget https://github.com/containous/traefik/releases/download/${traefik_version?required}/traefik_linux-amd64
 
 mv traefik_linux-amd64 /usr/bin/traefik
