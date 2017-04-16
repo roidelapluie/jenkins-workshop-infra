@@ -1,4 +1,11 @@
 #!/bin/bash -e
 set -o pipefail
-id="$(eval $(jq -r '@sh "doctl -t=\(.api_token) compute snapshot list \(.id) -o json"')|jq -r .[0].id)"
+snapshots="$(eval $(jq -r '@sh "doctl -t=\(.api_token) compute snapshot list \(.id) -o json"'))"
+nr="$(echo "$snapshots"|jq '.|length')"
+if [[ "$nr" -ne 1 ]]
+then
+    echo "Expected 1 snapshot, found $nr" >&2
+    exit 1
+fi
+id="$(echo "$snapshots"|jq -r .[0].id)"
 jq -r -n --arg id "$id" '{"id":$id}'
