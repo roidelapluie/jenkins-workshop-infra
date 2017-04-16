@@ -3,7 +3,8 @@
         "do_api_token": "",
         "do_base_image": "",
         "do_datacenter": "",
-        "version": ""
+        "version": "",
+        "consul_version": ""
     },
     "builders": [
         {
@@ -18,6 +19,13 @@
         }
     ],
     "provisioners": [
+        {
+            "type": "shell",
+            "script": "../common/consul.sh",
+            "environment_vars": [
+                "consul_version={{user `consul_version`}}"
+            ]
+        },
         {
             "type": "file",
             "source": "userContent",

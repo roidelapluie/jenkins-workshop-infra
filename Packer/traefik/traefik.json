@@ -4,7 +4,8 @@
         "do_base_image": "",
         "do_datacenter": "",
         "version": "",
-        "traefik_version": ""
+        "traefik_version": "",
+        "consul_version": ""
     },
     "builders": [
         {
@@ -21,11 +22,17 @@
     "provisioners": [
         {
             "type": "shell",
+            "script": "../common/consul.sh",
+            "environment_vars": [
+                "consul_version={{user `consul_version`}}"
+            ]
+        },
+        {
+            "type": "shell",
             "script": "build-traefik.sh",
             "environment_vars": [
                 "traefik_version={{user `traefik_version`}}"
             ]
-
         }
     ]
 }

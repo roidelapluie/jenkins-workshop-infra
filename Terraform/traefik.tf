@@ -2,8 +2,7 @@ data "template_file" "traefik_backend" {
     count = "${var.count}"
     template = "${file("backend.tpl")}"
     vars {
-      name   = "${element(digitalocean_droplet.jenkins.*.name, count.index)}"
-      private_ip   = "${element(digitalocean_droplet.jenkins.*.ipv4_address_private, count.index)}"
+      domain = "${var.do_domain}"
     }
 }
 
@@ -19,7 +18,6 @@ data "template_file" "traefik_frontend" {
     count = "${var.count}"
     template = "${file("frontend.tpl")}"
     vars {
-      name   = "${element(digitalocean_droplet.jenkins.*.name, count.index)}"
       domain = "${var.do_domain}"
     }
 }
@@ -38,6 +36,11 @@ resource "digitalocean_droplet" "traefik" {
   }
 
   provisioner "file" {
+    content     = "{\"bind_addr\": \"${self.ipv4_address_private}\", \"data_dir\": \"/etc/consul\"}"
+    destination = "/etc/consul.json"
+  }
+
+  provisioner "file" {
     source     = "../certs"
     destination = "/etc/traefik-ssl"
   }
@@ -45,7 +48,9 @@ resource "digitalocean_droplet" "traefik" {
 
   provisioner "remote-exec" {
     inline = [
-        "systemctl start traefik",
+        "systemctl start consul",
+        "systemctl enable consul",
+        #"systemctl start traefik",
     ]
   }
 }
