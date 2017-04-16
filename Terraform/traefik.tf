@@ -1,27 +1,3 @@
-data "template_file" "traefik_backend" {
-    count = "${var.count}"
-    template = "${file("backend.tpl")}"
-    vars {
-      domain = "${var.do_domain}"
-    }
-}
-
-data "template_file" "traefik_config" {
-    template = "${file("traefik.toml")}[file]\n[frontends]\n$${frontend}\n[backends]\n$${backend}"
-    vars {
-        backend = "${join("\n", data.template_file.traefik_backend.*.rendered)}"
-        frontend = "${join("\n", data.template_file.traefik_frontend.*.rendered)}"
-    }
-}
-
-data "template_file" "traefik_frontend" {
-    count = "${var.count}"
-    template = "${file("frontend.tpl")}"
-    vars {
-      domain = "${var.do_domain}"
-    }
-}
-
 resource "digitalocean_droplet" "traefik" {
   image = "${data.external.traefik_snapshot.result.id}"
   name = "traefik"
@@ -31,14 +7,30 @@ resource "digitalocean_droplet" "traefik" {
   size = "512mb"
 
   provisioner "file" {
-    content     = "${data.template_file.traefik_config.rendered}"
+    content     = <<EOF
+${file("traefik.toml")}
+[consulCatalog]
+endpoint = "127.0.0.1:8500"
+prefix = "traefik"
+EOF
     destination = "/etc/traefik.toml"
   }
 
   provisioner "file" {
-    content     = "{\"bind_addr\": \"${self.ipv4_address_private}\", \"data_dir\": \"/etc/consul\"}"
+    content     = <<EOF
+{
+  "bind_addr": "${self.ipv4_address_private}",
+  "data_dir": "/etc/consul"
+}
+EOF
     destination = "/etc/consul.json"
   }
+
+  provisioner "file" {
+    content     = "${data.template_file.consul_bootstrap.rendered}",
+    destination = "/etc/consul.d/bootstrap.json"
+  }
+
 
   provisioner "file" {
     source     = "../certs"
@@ -50,7 +42,8 @@ resource "digitalocean_droplet" "traefik" {
     inline = [
         "systemctl start consul",
         "systemctl enable consul",
-        #"systemctl start traefik",
+        "systemctl start traefik",
+        "systemctl enable traefik",
     ]
   }
 }

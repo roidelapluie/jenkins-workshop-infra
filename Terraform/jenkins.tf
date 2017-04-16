@@ -8,9 +8,42 @@ resource "digitalocean_droplet" "jenkins" {
   size = "512mb"
 
   provisioner "file" {
-    content     = "{\"bind_addr\": \"${self.ipv4_address_private}\", \"retry_connect\": \"${digitalocean_droplet.traefik.ipv4_address_private}\", \"data_dir\": \"/etc/consul\"}"
+    content     = <<EOF
+{
+  "bind_addr": "${self.ipv4_address_private}",
+  "retry_join":
+  [
+    "${digitalocean_droplet.traefik.ipv4_address_private}"
+  ],
+  "data_dir": "/etc/consul"
+}
+EOF
     destination = "/etc/consul.json"
   }
+
+  provisioner "file" {
+    content     = "${count.index < 2 ? data.template_file.consul_bootstrap.rendered : data.template_file.consul_bootstrap_agent.rendered}",
+    destination = "/etc/consul.d/bootstrap.json"
+  }
+
+  provisioner "file" {
+    content     = <<EOF
+{
+  "service": {
+    "name": "${format("jenkins%02d", count.index + 1)}",
+    "tags": [
+        "traefik.frontend.rule=Host:${self.name}.${var.do_domain}",
+        "traefik.frontend.passHostHeader=true"
+    ],
+    "port": 8080,
+    "enableTagOverride": false,
+    "address": "${self.ipv4_address_private}"
+  }
+}
+EOF
+    destination = "/etc/consul.d/jenkins.json"
+  }
+
 
   provisioner "remote-exec" {
     inline = [

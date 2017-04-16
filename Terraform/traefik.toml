@@ -1,4 +1,4 @@
-defaultEntryPoints = ["https"]
+defaultEntryPoints = ["https", "http"]
 
 [entryPoints]
     [entryPoints.http]
