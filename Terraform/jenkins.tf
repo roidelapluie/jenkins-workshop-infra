@@ -14,8 +14,8 @@ resource "digitalocean_droplet" "jenkins" {
 
   provisioner "remote-exec" {
     inline = [
-        "systemctl start consul"
-        "systemctl enable consul"
+        "systemctl start consul",
+        "systemctl enable consul",
         "echo -n ${element(random_id.password.*.hex, count.index)} | su --shell=/bin/bash jenkins -c 'tee /tmp/password >/dev/null'",
         "service jenkins restart"
     ]
