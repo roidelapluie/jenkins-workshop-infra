@@ -1,13 +1,14 @@
 args = -var-file ../config.json
+TERRAFORM ?= terraform
 
 plan:
-	terraform plan $(args)
+	$(TERRAFORM) plan $(args)
 
 build:
-	terraform apply $(args)
+	$(TERRAFORM) apply $(args)
 
 clean:
-	terraform destroy $(args)
+	$(TERRAFORM) destroy $(args)
 
 traefik:
-	terraform taint digitalocean_droplet.traefik
+	$(TERRAFORM) taint digitalocean_droplet.traefik
