@@ -1,3 +1,10 @@
+data "template_file" "traefik_web" {
+  template = "${file("traefik_web.toml")}"
+  vars {
+    userdef = "${var.traefik_userdef}"
+  }
+}
+
 resource "digitalocean_droplet" "traefik" {
   image = "${data.external.traefik_snapshot.result.id}"
   name = "traefik"
@@ -9,6 +16,7 @@ resource "digitalocean_droplet" "traefik" {
   provisioner "file" {
     content     = <<EOF
 ${file("traefik.toml")}
+${data.template_file.traefik_web.rendered}
 [consulCatalog]
 endpoint = "127.0.0.1:8500"
 prefix = "traefik"
@@ -24,6 +32,11 @@ EOF
 }
 EOF
     destination = "/etc/consul.json"
+  }
+
+  provisioner "file" {
+    content     = "${data.template_file.consul_security.rendered}"
+    destination = "/etc/consul.d/encryption.json"
   }
 
   provisioner "file" {

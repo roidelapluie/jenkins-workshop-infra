@@ -1,0 +1,6 @@
+[web]
+address = ":8443"
+CertFile = "/etc/traefik-ssl/fullchain.pem"
+KeyFile = "/etc/traefik-ssl/privkey.pem"
+[web.auth.basic]
+   users = ["${userdef}"]
