@@ -5,3 +5,7 @@ resource "random_id" "password" {
   }
   byte_length = 4
 }
+
+resource "random_id" "consul" {
+  byte_length = 16
+}

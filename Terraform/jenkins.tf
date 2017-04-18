@@ -27,6 +27,11 @@ EOF
   }
 
   provisioner "file" {
+    content     = "${data.template_file.consul_security.rendered}"
+    destination = "/etc/consul.d/encryption.json"
+  }
+
+  provisioner "file" {
     content     = <<EOF
 {
   "service": {
