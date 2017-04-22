@@ -18,7 +18,7 @@ resource "digitalocean_droplet" "jenkins" {
   "data_dir": "/etc/consul"
 }
 EOF
-    destination = "/etc/consul.json"
+    destination = "/etc/consul.d/consul.json"
   }
 
   provisioner "file" {
@@ -52,6 +52,8 @@ EOF
 
   provisioner "remote-exec" {
     inline = [
+        "chown -R consul: /etc/consul.d",
+        "chmod -R o-rwx /etc/consul.d",
         "systemctl start consul",
         "systemctl enable consul",
         "echo -n ${element(random_id.password.*.hex, count.index)} | su --shell=/bin/bash jenkins -c 'tee /tmp/password >/dev/null'",
