@@ -6,7 +6,7 @@ data "template_file" "traefik_web" {
 }
 
 resource "digitalocean_droplet" "traefik" {
-  image = "${data.external.traefik_snapshot.result.id}"
+  image = "${data.digitalocean_image.traefik.image}"
   name = "traefik"
   ssh_keys = [ "${var.do_ssh_key}" ]
   region = "${var.do_datacenter}"

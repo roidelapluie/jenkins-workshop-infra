@@ -1,7 +1,7 @@
 resource "digitalocean_droplet" "jenkins" {
   count  = "${var.count}"
   name = "${format("jenkins%02d", count.index + 1)}"
-  image = "${data.external.jenkins_snapshot.result.id}"
+  image = "${data.digitalocean_image.jenkins.image}"
   ssh_keys = [ "${var.do_ssh_key}" ]
   region = "${var.do_datacenter}"
   private_networking = "true",
