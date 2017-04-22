@@ -3,6 +3,7 @@ yum install -y unzip
 
 wget https://releases.hashicorp.com/consul/${consul_version}/consul_${consul_version}_linux_amd64.zip -O consul.zip
 unzip consul.zip
+rm consul.zip
 mv consul /usr/bin/consul
 mkdir /etc/consul.d
 
