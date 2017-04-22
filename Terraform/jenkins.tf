@@ -15,7 +15,7 @@ resource "digitalocean_droplet" "jenkins" {
   [
     "${digitalocean_droplet.traefik.ipv4_address_private}"
   ],
-  "data_dir": "/etc/consul"
+  "data_dir": "/var/lib/consul"
 }
 EOF
     destination = "/etc/consul.d/consul.json"

@@ -28,7 +28,7 @@ EOF
     content     = <<EOF
 {
   "bind_addr": "${self.ipv4_address_private}",
-  "data_dir": "/etc/consul"
+  "data_dir": "/var/lib/consul"
 }
 EOF
     destination = "/etc/consul.d/consul.json"
