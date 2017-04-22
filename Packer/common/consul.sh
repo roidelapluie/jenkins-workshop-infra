@@ -8,8 +8,6 @@ mv consul /usr/bin/consul
 mkdir /etc/consul.d
 
 useradd -s /sbin/nologin -d /var/lib/consul consul
-mkdir /var/lib/consul
-chown consul: /var/lib/consul
 
 cat << END > /etc/systemd/system/consul.service
 [Unit]
