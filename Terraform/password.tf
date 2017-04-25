@@ -1,8 +1,10 @@
 resource "random_id" "password" {
-  count  = "${var.count}"
+  count = "${var.count}"
+
   keepers = {
-    id= "${count.index}"
+    id = "${count.index}"
   }
+
   byte_length = 4
 }
 

@@ -15,4 +15,3 @@ resource "digitalocean_domain" "default" {
   name       = "${var.do_domain}"
   ip_address = "${digitalocean_floating_ip.traefik.ip_address}"
 }
-
