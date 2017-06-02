@@ -5,7 +5,7 @@ resource "digitalocean_droplet" "jenkins" {
   ssh_keys           = ["${var.do_ssh_key}"]
   region             = "${var.do_datacenter}"
   private_networking = "true"
-  size               = "512mb"
+  size               = "2gb"
 
   provisioner "file" {
     content = <<EOF
