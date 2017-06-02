@@ -1,5 +1,5 @@
 resource "random_id" "password" {
-  count = "${var.count}"
+  count = "${length(var.github_usernames)}"
 
   keepers = {
     id = "${count.index}"

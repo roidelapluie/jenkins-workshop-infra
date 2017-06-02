@@ -1,7 +1,7 @@
 data "template_file" "consul_bootstrap" {
   template = <<EOF
 {
-  "bootstrap_expect": ${var.count == "1" ? "2" : "3"},
+  "bootstrap_expect": ${length(var.github_usernames) == "1" ? "2" : "3"},
   "server": true
 }
 EOF

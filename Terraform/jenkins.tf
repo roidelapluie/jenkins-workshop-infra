@@ -1,5 +1,5 @@
 resource "digitalocean_droplet" "jenkins" {
-  count              = "${var.count}"
+  count              = "${length(var.github_usernames)}"
   name               = "${format("jenkins%02d", count.index + 1)}"
   image              = "${data.digitalocean_image.jenkins.image}"
   ssh_keys           = ["${var.do_ssh_key}"]

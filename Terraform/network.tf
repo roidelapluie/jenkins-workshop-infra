@@ -4,7 +4,7 @@ resource "digitalocean_floating_ip" "traefik" {
 }
 
 resource "digitalocean_record" "jenkins" {
-  count  = "${var.count}"
+  count  = "${length(var.github_usernames)}"
   domain = "${digitalocean_domain.default.name}"
   type   = "A"
   name   = "${element(digitalocean_droplet.jenkins.*.name, count.index)}"

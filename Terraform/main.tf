@@ -1,5 +1,9 @@
-variable "count" {}
 variable "do_api_token" {}
+
+variable "github_usernames" {
+  type = "list"
+}
+
 variable "do_datacenter" {}
 variable "do_jenkins_droplet_version" {}
 variable "do_traefik_droplet_version" {}
