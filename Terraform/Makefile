@@ -1,11 +1,16 @@
-args = -var-file ../config.json
+args = -var-file ../config.json -var-file ../users.tfvars
 TERRAFORM ?= terraform
 
-plan:
-	$(TERRAFORM) plan $(args)
+default: plan
+
+fmt:
+	$(TERRAFORM) fmt
+
+plan: fmt
+	$(TERRAFORM) plan $(args) -out terraform.plan
 
 build:
-	$(TERRAFORM) apply $(args)
+	$(TERRAFORM) apply terraform.plan
 
 clean:
 	$(TERRAFORM) destroy $(args)
