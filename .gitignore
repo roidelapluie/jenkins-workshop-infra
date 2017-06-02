@@ -1,4 +1,5 @@
 certs
+*.tfvars
 config.json
 do_*.pem
 *.tfstate
