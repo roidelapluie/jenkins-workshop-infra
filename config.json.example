@@ -6,6 +6,9 @@
     "do_ssh_key": "8096521",
     "do_jenkins_droplet_version": "1.0.7",
     "do_traefik_droplet_version": "1.0.1",
+    "github_token": "25ef78ac28e1853a78f4338a025ef78ac28e1853a",
+    "github_organization": "jenkinsws",
+    "traefik_userdef": "admin:$axr1$lRon62xV$13Q038a025ef78ac28e1853a7",
     "github_usernames": [
         'user1',
         'user2',

@@ -10,7 +10,7 @@ resource "digitalocean_droplet" "jenkins" {
   provisioner "file" {
     content = <<EOF
 {
-  "bind_addr": "${self.ipv4_address_private}",
+   "bind_addr": "${self.ipv4_address_private}",
   "retry_join":
   [
     "${digitalocean_droplet.traefik.ipv4_address_private}"
@@ -57,7 +57,7 @@ EOF
       "chmod -R o-rwx /etc/consul.d",
       "systemctl start consul",
       "systemctl enable consul",
-      "echo -n ${element(random_id.password.*.hex, count.index)} | su --shell=/bin/bash jenkins -c 'tee /tmp/password >/dev/null'",
+      "echo -n ${element(github_repository_collaborator.wsuser2.*.username, count.index) == "jenkinswsuser" ? element(random_id.password.*.hex, count.index) : element(github_repository_collaborator.wsuser2.*.username, count.index)} | su --shell=/bin/bash jenkins -c 'tee /tmp/password >/dev/null'",
       "service jenkins restart",
     ]
   }
