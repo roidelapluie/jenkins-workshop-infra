@@ -33,6 +33,7 @@ done"
 wget http://127.0.0.1:8080/jnlpJars/jenkins-cli.jar -O jenkins-cli.jar
 
 java -jar jenkins-cli.jar -s http://127.0.0.1:8080/ install-plugin antisamy-markup-formatter
+java -jar jenkins-cli.jar -s http://127.0.0.1:8080/ install-plugin git
 
 chmod +x /etc/rc.local
 
