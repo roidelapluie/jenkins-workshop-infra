@@ -8,8 +8,14 @@ rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
  echo install java-openjdk
  echo install jenkins
  echo install git
+ echo install python3
+ echo install python3-devel
+ echo install python
+ echo install python-devel
  echo run
  ) | yum shell -y
+
+easy_install pip virtualenv
 
 systemctl enable jenkins
 
