@@ -21,6 +21,10 @@
     "provisioners": [
         {
             "type": "shell",
+            "script": "../common/do.sh"
+        },
+        {
+            "type": "shell",
             "script": "../common/consul.sh",
             "environment_vars": [
                 "consul_version={{user `consul_version`}}"
